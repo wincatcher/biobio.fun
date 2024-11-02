@@ -7,14 +7,7 @@ export async function POST(req: Request) {
   if (!FORMCARRY_MAIL_KEY) {
     return NextResponse.json(
       { error: '邮件服务配置错误' }, 
-      { 
-        status: 500,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type'
-        }
-      }
+      { status: 500 }
     )
   }
 
@@ -28,29 +21,19 @@ export async function POST(req: Request) {
       body: JSON.stringify(body)
     })
     
-    const data = await response.json()
+    if (!response.ok) {
+      throw new Error('邮件服务响应错误')
+    }
+
     return NextResponse.json(
-      { code: 200, message: 'Email sent successfully' },
-      {
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type'
-        }
-      }
+      { message: 'Email sent successfully' },
+      { status: 200 }
     )
   } catch (error: any) {
     console.error('邮件发送错误:', error)
     return NextResponse.json(
       { error: '发送失败', details: error?.message || '未知错误' }, 
-      { 
-        status: 500,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST, OPTIONS',
-          'Access-Control-Allow-Headers': 'Content-Type'
-        }
-      }
+      { status: 500 }
     )
   }
 }

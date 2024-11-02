@@ -47,27 +47,21 @@ export const Form = () => {
         body: JSON.stringify({ name, email, message }),
       });
       
-      const data = await res.json();
-      
-      if (data.code === 200) {
-        setName('');
-        setEmail('');
-        setMessage('');
-        toast("Email has been sent", {
-          className: "my-classname",
-          duration: 3000,
-          icon: <CircleCheckSVG />,
-        });
-      } else {
-        toast("Email has not been sent", {
-          className: "my-classname",
-          duration: 3000,
-          icon: <CircleXSVG />,
-        });
+      if (!res.ok) {
+        throw new Error('请求失败')
       }
+
+      setName('');
+      setEmail('');
+      setMessage('');
+      toast("Email has been sent", {
+        className: "my-classname",
+        duration: 3000,
+        icon: <CircleCheckSVG />,
+      });
     } catch (error) {
       toast("Email has not been sent", {
-        className: "my-classname",
+        className: "my-classname", 
         duration: 3000,
         icon: <CircleXSVG />,
       });
