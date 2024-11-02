@@ -44,17 +44,16 @@ export default function Contact() {
           className="col-span-full lg:row-start-2 lg:row-span-1 lg:col-span-1 cursor-pointer opacity-0 mobile-animation linkedInCard"
         >
           <Link
-            href={linkedIn}
+            href={x}
             rel="noopener noreferrer"
             target="_blank"
             className="min-h-full flex justify-center items-center"
           >
             <CardBody
               className="flex justify-center items-center"
-              onClick={() => window.open(`${linkedIn}`, "_blank")}
+              onClick={() => window.open(`${x}`, "_blank")}
             >
-              {/* <XSVG /> */}
-              <LinkedInSVG />
+              <XSVG />
             </CardBody>
           </Link>
         </Card>
