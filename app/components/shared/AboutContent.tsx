@@ -40,20 +40,20 @@ export const AboutContent = ({ variant = 'page' }: AboutContentProps) => {
             src={variant === 'page' ? "https://images.unsplash.com/photo-1508674861872-a51e06c50c9b?q=80&w=3737&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" : "/avatar/avatartion.png"}
             className="w-24 h-24 text-large brightness-90"
           />
-          <h1 className="text-4xl font-bold">{fullName}</h1>
+          <h1 className="text-3xl ">{fullName}</h1>
         </CardBody>
       </Card>
 
       <Card className="col-span-full lg:row-start-1 lg:row-span-1 lg:col-span-2  opacity-0 mobile-animation whoAmICard">
         <CardBody className="gap-2">
-          <div className="text-3xl font-bold">Who am I?</div>
+          <div className="text-2xl ">我是谁？</div>
           <div className="text-lg text-gray-400">{whoAmI} </div>
         </CardBody>
       </Card>
 
       <Card className="col-span-full row-start-2 row-end-3 lg:row-start-2 lg:col-start-1 lg:col-span-1 bg-blue opacity-0 mobile-animation professionCard">
         <CardBody className="justify-center items-center">
-          <h2 className="text-2xl lg:text-3xl font-bold  text-center">
+          <h2 className="text-2xl lg:text-2xl   text-center">
             {profession}
           </h2>
         </CardBody>
@@ -61,7 +61,7 @@ export const AboutContent = ({ variant = 'page' }: AboutContentProps) => {
 
       <Card className="hidden lg:flex col-span-2 lg:row-start-3 lg:row-span-1 lg:col-start-3 lg:col-span-1 bg-blue opacity-0 mobile-animation quoteCard">
         <CardBody className="justify-center items-center lg:row-start-2 lg:cols-start-4">
-          <div className="text-3xl font-bold text-center">
+          <div className="text-2xl  text-center">
             &#34;{quote}&#34;
           </div>
         </CardBody>
@@ -69,8 +69,8 @@ export const AboutContent = ({ variant = 'page' }: AboutContentProps) => {
 
       <Card className="col-span-full lg:row-start-3 lg:row-span-2 lg:col-start-1 lg:col-span-1 opacity-0 mobile-animation technologyIconList">
         <CardBody className="gap-4">
-          <h2 className="text-3xl font-bold">
-            Technologies I have worked with
+          <h2 className="text-2xl ">
+            用到的技术
           </h2>
 
           <div className="flex flex-wrap justify-center lg:justify-center gap-x-10 gap-y-6">
@@ -126,7 +126,7 @@ export const AboutContent = ({ variant = 'page' }: AboutContentProps) => {
           <path d="M20 8m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
         </svg>
         <CardBody className="gap-2 flex-wrap">
-          <h2 className="text-3xl font-bold ">Education</h2>
+          <h2 className="text-2xl  ">教育</h2>
 
           <div className="flex flex-col lg:flex-col gap-2">
             {educationList.map((education: educationType) => (
