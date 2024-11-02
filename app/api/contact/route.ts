@@ -29,16 +29,20 @@ export async function POST(req: Request) {
     })
     
     const data = await response.json()
-    return NextResponse.json(data, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      }
-    })
-  } catch (error) {
     return NextResponse.json(
-      { error: '发送失败' }, 
+      { code: 200, message: 'Email sent successfully' },
+      {
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type'
+        }
+      }
+    )
+  } catch (error) {
+    console.error('邮件发送错误:', error)
+    return NextResponse.json(
+      { error: '发送失败', details: error.message }, 
       { 
         status: 500,
         headers: {
@@ -51,7 +55,6 @@ export async function POST(req: Request) {
   }
 }
 
-// 添加 OPTIONS 请求处理
 export async function OPTIONS() {
   return NextResponse.json({}, {
     headers: {

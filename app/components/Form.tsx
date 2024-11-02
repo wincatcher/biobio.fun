@@ -16,14 +16,11 @@ export const Form = () => {
   const [isInvalidEmail, setIsInvalidEmail] = useState<boolean>(false);
   const [isInvalidMessage, setIsInvalidMessage] = useState<boolean>(false);
 
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState("");
-
   useEffect(() => {
     if (name !== "") setIsInvalidName(false);
     if (
       email.match(
-        /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
       )
     )
       setIsInvalidEmail(false);
@@ -53,33 +50,29 @@ export const Form = () => {
       const data = await res.json();
       
       if (data.code === 200) {
-        setSubmitted(true);
         setName('');
         setEmail('');
         setMessage('');
+        toast("Email has been sent", {
+          className: "my-classname",
+          duration: 3000,
+          icon: <CircleCheckSVG />,
+        });
       } else {
-        setError(data.message || '发送失败');
+        toast("Email has not been sent", {
+          className: "my-classname",
+          duration: 3000,
+          icon: <CircleXSVG />,
+        });
       }
     } catch (error) {
-      setError('发送失败');
+      toast("Email has not been sent", {
+        className: "my-classname",
+        duration: 3000,
+        icon: <CircleXSVG />,
+      });
     }
   };
-
-  if (error) {
-    toast("Email has not been sent", {
-      className: "my-classname",
-      duration: 3000,
-      icon: <CircleXSVG />,
-    });
-  }
-
-  if (submitted) {
-    toast("Email has been sent", {
-      className: "my-classname",
-      duration: 3000,
-      icon: <CircleCheckSVG />,
-    });
-  }
 
   return (
     <form
