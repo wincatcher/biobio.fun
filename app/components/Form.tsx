@@ -6,7 +6,6 @@ import { Toaster } from "sonner";
 import { toast } from "sonner";
 
 import { CircleCheckSVG, CircleXSVG } from "./ui/icons";
-const MAIL_KEY = process.env.NEXT_PUBLIC_MAIL_KEY;
 
 export const Form = () => {
   const [name, setName] = useState<string>("");
@@ -31,7 +30,7 @@ export const Form = () => {
     if (message !== "") setIsInvalidMessage(false);
   }, [name, email, message]);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (name === "") setIsInvalidName(true);
@@ -42,26 +41,28 @@ export const Form = () => {
       return;
     }
 
-    fetch(`https://formcarry.com/s/${MAIL_KEY}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({ name: name, email: email, message: message }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.code === 200) {
-          setSubmitted(true);
-          setName("");
-          setEmail("");
-          setMessage("");
-        } else {
-          setError(res.message);
-        }
-      })
-      .catch((error) => setError(error));
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, message }),
+      });
+      
+      const data = await res.json();
+      
+      if (data.code === 200) {
+        setSubmitted(true);
+        setName('');
+        setEmail('');
+        setMessage('');
+      } else {
+        setError(data.message || '发送失败');
+      }
+    } catch (error) {
+      setError('发送失败');
+    }
   };
 
   if (error) {
