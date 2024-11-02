@@ -39,10 +39,10 @@ export async function POST(req: Request) {
         }
       }
     )
-  } catch (error) {
+  } catch (error: any) {
     console.error('邮件发送错误:', error)
     return NextResponse.json(
-      { error: '发送失败', details: error.message }, 
+      { error: '发送失败', details: error?.message || '未知错误' }, 
       { 
         status: 500,
         headers: {
