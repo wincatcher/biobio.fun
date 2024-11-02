@@ -5,6 +5,7 @@ const FORMCARRY_MAIL_KEY = process.env.FORMCARRY_MAIL_KEY
 
 export async function POST(req: Request) {
   if (!FORMCARRY_MAIL_KEY) {
+    console.error('邮件服务配置错误: FORMCARRY_MAIL_KEY 未设置');
     return NextResponse.json(
       { error: '邮件服务配置错误' }, 
       { status: 500 }
@@ -17,22 +18,28 @@ export async function POST(req: Request) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
       body: JSON.stringify(body)
     })
     
+    const data = await response.json()
+    
     if (!response.ok) {
-      throw new Error('邮件服务响应错误')
+      throw new Error(data.message || '邮件服务响应错误')
     }
 
     return NextResponse.json(
-      { message: 'Email sent successfully' },
+      { message: '邮件发送成功', data }, 
       { status: 200 }
     )
   } catch (error: any) {
     console.error('邮件发送错误:', error)
     return NextResponse.json(
-      { error: '发送失败', details: error?.message || '未知错误' }, 
+      { 
+        error: '发送失败', 
+        details: error?.message || '未知错误',
+      }, 
       { status: 500 }
     )
   }
